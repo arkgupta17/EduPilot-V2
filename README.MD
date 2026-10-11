@@ -15,6 +15,34 @@ Instead of manually searching through lengthy documents and webpages, users can 
 - **OCR support:** Extract text from scanned PDFs where required.
 - **Interactive dashboard:** Chat interface for querying knowledge sources and viewing retrieved evidence.
 
+## What's New in EduPilot V2?
+
+EduPilot V2 builds on the original EduPilot project with a stronger focus on document-grounded question answering, knowledge-source management, and a more polished research experience.
+
+| Area | Version 1 | Version 2 |
+|---|---|---|
+| Knowledge ingestion | Initial document and programme research workflow | Expanded ingestion workflow supporting PDFs, webpages, and supported linked PDF documents |
+| Document processing | Foundational content extraction | PDF text extraction, OCR support for scanned documents, and webpage processing |
+| Retrieval pipeline | Initial retrieval-based question answering | FAISS-backed semantic retrieval with document and source-level query scoping |
+| Answer grounding | Basic RAG question answering | Retrieved evidence and source references presented alongside generated answers |
+| Knowledge management | Initial source workflow | Dedicated knowledge-source selection and source management within the dashboard |
+| User experience | Earlier interface and interaction flow | Redesigned Next.js dashboard with a more structured research and chat experience |
+| Project direction | Initial implementation of the programme research assistant | Greater emphasis on retrieval reliability, evidence-based answers, and source isolation |
+
+### Key Improvements
+
+- **More flexible ingestion:** Work with programme information from PDFs and webpages rather than relying on a single content format.
+- **Evidence-oriented answers:** Retrieve relevant content from indexed knowledge sources and display supporting references.
+- **Knowledge-source scoping:** Select a document or website to focus questions on the intended source.
+- **Improved interface:** Provide a more organized workspace for source selection, conversations, and retrieved evidence.
+- **Foundation for evaluation:** Establish a clearer path toward testing retrieval quality, answer grounding, and source isolation.
+
+### Development Status
+
+EduPilot V2 is actively evolving. Retrieval reliability, source isolation, evaluation, and deployment readiness remain areas for continued improvement.
+
+
+
 ## Architecture
 
 EduPilot V2 uses a frontend and backend architecture:
