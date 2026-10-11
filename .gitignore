@@ -1,0 +1,13 @@
+.env
+.venv
+.env.*
+!.env.example
+node_modules/
+.next/
+__pycache__/
+.venv/
+venv/
+data/index/
+data/raw/
+*.pkl
+*.index

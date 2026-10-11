@@ -1,0 +1,1203 @@
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.2);
+  --font-sans: var(--font-geist), "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-serif: var(--font-playfair), "Playfair Display Fallback";
+}
+
+/* --------------------------------------------------
+   DESIGN TOKENS
+-------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  --background: #f7f7f4;
+  --foreground: #20231f;
+
+  --card: #ffffff;
+  --card-foreground: #20231f;
+
+  --popover: #ffffff;
+  --popover-foreground: #20231f;
+
+  --primary: #465b3d;
+  --primary-foreground: #ffffff;
+
+  --secondary: #eeefe9;
+  --secondary-foreground: #34382f;
+
+  --muted: #f0f0eb;
+  --muted-foreground: #73766e;
+
+  --accent: #e9ede5;
+  --accent-foreground: #303a2b;
+
+  --border: #e3e4dc;
+  --input: #d9dbd1;
+  --ring: #899781;
+
+  --destructive: #bd5149;
+  --radius: 0.75rem;
+}
+
+/* --------------------------------------------------
+   GLOBAL BASE
+-------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  min-height: 100%;
+  background: var(--background);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist), "Geist Fallback", sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  color: #20231f;
+  background: #dce4d5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d0d2c8;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aeb3a4;
+}
+
+/* --------------------------------------------------
+   EDUPILOT APPLICATION SHELL
+-------------------------------------------------- */
+
+.edupilot-shell {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist), "Geist Fallback", sans-serif;
+  isolation: isolate;
+}
+
+.edupilot-shell:not(.edupilot-dark) {
+  background: #f7f7f4;
+  color: #20231f;
+}
+
+.edupilot-shell:not(.edupilot-dark) main {
+  background: #f7f7f4;
+}
+
+/* --------------------------------------------------
+   SIDEBAR
+-------------------------------------------------- */
+
+.edupilot-shell > div > aside,
+.edupilot-shell aside {
+  scrollbar-width: thin;
+  scrollbar-color: #d0d2c8 transparent;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside {
+  border-color: #e3e4dc;
+}
+
+.edupilot-shell aside button {
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside button:hover {
+  transition-duration: 120ms;
+}
+
+/* --------------------------------------------------
+   HEADER
+-------------------------------------------------- */
+
+.edupilot-shell header {
+  border-color: #e3e4dc;
+}
+
+.edupilot-shell:not(.edupilot-dark) header {
+  background-color: rgb(247 247 244 / 94%);
+}
+
+/* --------------------------------------------------
+   WELCOME SCREEN
+   Targets the actual Welcome component structure.
+-------------------------------------------------- */
+
+.edupilot-shell main > div.min-h-0 > div:first-child
+> div.mx-auto.max-w-4xl {
+  max-width: 860px;
+  padding-top: clamp(48px, 9vh, 104px);
+  padding-bottom: 56px;
+}
+
+/* Welcome icon */
+.edupilot-shell main > div.min-h-0 > div:first-child
+> div.mx-auto.max-w-4xl > div:first-child {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 28px;
+  border-radius: 15px;
+  box-shadow: 0 5px 16px rgb(32 35 31 / 10%);
+}
+
+/* Editorial heading */
+.edupilot-shell main h1 {
+  font-family: var(--font-playfair), "Playfair Display Fallback", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+
+.edupilot-shell:not(.edupilot-dark) main h1 {
+  color: #20231f;
+}
+
+/* Welcome description */
+.edupilot-shell main h1 + p {
+  max-width: 620px;
+  color: #62685d;
+  line-height: 1.85;
+}
+
+/* --------------------------------------------------
+   SUGGESTION CARDS
+   Actual cards use Tailwind's button.group classes.
+-------------------------------------------------- */
+
+.edupilot-shell main button.group {
+  min-height: 82px;
+  padding: 17px;
+  border: 1px solid #dedfd5;
+  border-radius: 13px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgb(32 35 31 / 3%);
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.edupilot-shell main button.group:hover {
+  transform: none;
+  border-color: #a6b29a;
+  background: #f0f3eb;
+  box-shadow: 0 3px 10px rgb(32 35 31 / 4%);
+}
+
+.edupilot-shell main button.group > span:first-child {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #edf1e8;
+  color: #465b3d;
+}
+
+.edupilot-shell main button.group:hover > span:first-child {
+  background: #465b3d;
+  color: #ffffff;
+}
+
+.edupilot-shell main button.group > span:nth-child(2) > span:first-child {
+  color: #30382c;
+  font-size: 13px;
+}
+
+.edupilot-shell main button.group > span:nth-child(2) > span:nth-child(2) {
+  color: #777d70;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------
+   CHAT MESSAGES
+-------------------------------------------------- */
+
+.edupilot-shell main .space-y-8 {
+  gap: 28px;
+}
+
+.edupilot-shell main .prose {
+  color: #34382f;
+}
+
+.edupilot-shell main textarea {
+  color: #20231f;
+  caret-color: #465b3d;
+}
+
+.edupilot-shell main textarea::placeholder {
+  color: #85877e;
+  opacity: 1;
+}
+
+/* --------------------------------------------------
+   COMPOSER
+-------------------------------------------------- */
+
+.edupilot-shell main textarea {
+  border-radius: 10px;
+}
+
+.edupilot-shell main textarea:focus {
+  outline: none;
+}
+
+.edupilot-shell main input[type="url"] {
+  min-height: 38px;
+  border-color: #dedfd5;
+  border-radius: 10px;
+  background: #f8f8f5;
+}
+
+.edupilot-shell main input[type="url"]:focus {
+  border-color: #899781;
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(137 151 129 / 14%);
+}
+
+.edupilot-shell main button:focus-visible,
+.edupilot-shell main input:focus-visible,
+.edupilot-shell main textarea:focus-visible {
+  outline: 2px solid #899781;
+  outline-offset: 2px;
+}
+
+.edupilot-shell main button:disabled {
+  box-shadow: none;
+}
+
+/* --------------------------------------------------
+   EVIDENCE PANEL AND SOURCE CARDS
+-------------------------------------------------- */
+
+.edupilot-shell aside .rounded-xl.border {
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside .rounded-xl.border {
+  border-color: #e3e4dc;
+}
+
+.edupilot-shell aside .rounded-xl.border:hover {
+  border-color: #c7cebd;
+}
+
+/* --------------------------------------------------
+   RESPONSIVE LAYOUT
+-------------------------------------------------- */
+
+@media (min-width: 1280px) {
+  .edupilot-shell main > div.min-h-0 > div:first-child
+  > div.mx-auto.max-w-4xl {
+    max-width: 860px;
+  }
+}
+
+@media (max-width: 767px) {
+  .edupilot-shell main > div.min-h-0 > div:first-child
+  > div.mx-auto.max-w-4xl {
+    padding-top: 42px;
+    padding-bottom: 36px;
+  }
+
+  .edupilot-shell main h1 {
+    font-size: clamp(32px, 8vw, 42px);
+    letter-spacing: -0.04em;
+  }
+
+  .edupilot-shell main button.group {
+    min-height: 76px;
+    padding: 13px;
+    border-radius: 12px;
+  }
+
+  .edupilot-shell main button.group > span:first-child {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .edupilot-shell main > div.min-h-0 > div:first-child
+  > div.mx-auto.max-w-4xl {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .edupilot-shell main h1 {
+    font-size: 32px;
+  }
+}
+
+/* --------------------------------------------------
+   DARK MODE
+   Works with the existing .edupilot-dark class and
+   theme toggle in edupilot-dashboard.tsx.
+-------------------------------------------------- */
+
+.edupilot-shell.edupilot-dark {
+  color-scheme: dark;
+  background: #090b10;
+  color: #f8fafc;
+}
+
+.edupilot-shell.edupilot-dark main {
+  background: #090b10;
+}
+
+.edupilot-shell.edupilot-dark header {
+  border-color: #1e293b;
+}
+
+.edupilot-shell.edupilot-dark main button.group {
+  border-color: #273142;
+  background: #111720;
+  box-shadow: none;
+}
+
+.edupilot-shell.edupilot-dark main button.group:hover {
+  border-color: #52634c;
+  background: #18211a;
+}
+
+.edupilot-shell.edupilot-dark main button.group > span:nth-child(2) > span:first-child {
+  color: #f1f5f9;
+}
+
+.edupilot-shell.edupilot-dark main button.group > span:nth-child(2) > span:nth-child(2) {
+  color: #94a3b8;
+}
+
+.edupilot-shell.edupilot-dark main input[type="url"] {
+  border-color: #273142;
+  background: #111720;
+  color: #f8fafc;
+}
+
+.edupilot-shell.edupilot-dark main input[type="url"]::placeholder {
+  color: #64748b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ==================================================
+   EDUPILOT — PREMIUM EDITORIAL FINISH
+   Sidebar · Header · Chat · Composer · Evidence
+================================================== */
+
+/* Shared visual language */
+.edupilot-shell:not(.edupilot-dark) {
+  background: #f7f7f4;
+  color: #20231f;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside {
+  border-color: #e4e5dc;
+}
+
+/* Sidebar and knowledge workspace */
+.edupilot-shell:not(.edupilot-dark) aside:first-of-type {
+  background-color: #f2f2ed;
+}
+
+.edupilot-shell aside > div:first-child {
+  min-height: 76px;
+}
+
+.edupilot-shell aside .uppercase {
+  letter-spacing: 0.15em;
+}
+
+.edupilot-shell aside button {
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
+}
+
+/* Source rows: quiet, clear and easy to scan */
+.edupilot-shell aside .cursor-pointer {
+  border: 1px solid transparent;
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease;
+}
+
+.edupilot-shell:not(.edupilot-dark)
+aside .cursor-pointer:not(.bg-slate-900):hover {
+  border-color: #e0e3d8;
+  background-color: #f9faf6;
+}
+
+/* Brand and account identity */
+.edupilot-shell aside .rounded-xl.bg-slate-950 {
+  box-shadow: none;
+}
+
+.edupilot-shell aside .rounded-full.bg-slate-900 {
+  background: #465b3d;
+}
+
+/* Top header */
+.edupilot-shell header {
+  min-height: 68px;
+  border-color: #e4e5dc;
+}
+
+.edupilot-shell:not(.edupilot-dark) header {
+  background: rgb(247 247 244 / 94%);
+}
+
+.edupilot-shell header button {
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    color 140ms ease;
+}
+
+/* Chat area */
+.edupilot-shell main {
+  min-width: 0;
+}
+
+.edupilot-shell main > div.min-h-0 {
+  scrollbar-width: thin;
+  scrollbar-color: #d0d2c8 transparent;
+}
+
+/* Message typography */
+.edupilot-shell main .leading-7 {
+  line-height: 1.85;
+}
+
+.edupilot-shell main .leading-7 strong {
+  font-weight: 650;
+}
+
+.edupilot-shell main blockquote {
+  border-left-color: #9aa88e;
+}
+
+.edupilot-shell main table {
+  font-variant-numeric: tabular-nums;
+}
+
+.edupilot-shell main th {
+  background: #f0f1eb;
+}
+
+/* Assistant source attribution */
+.edupilot-shell main button.mt-4 {
+  border-color: #e0e3d8;
+  border-radius: 12px;
+  transition:
+    border-color 140ms ease,
+    background-color 140ms ease;
+}
+
+.edupilot-shell:not(.edupilot-dark) main button.mt-4:hover {
+  border-color: #a6b29a;
+  background: #f6f7f1;
+}
+
+/* Composer footer */
+.edupilot-shell main > div.border-t {
+  border-color: #e4e5dc;
+}
+
+.edupilot-shell:not(.edupilot-dark) main > div.border-t {
+  background: rgb(247 247 244 / 96%);
+}
+
+/* Composer panel */
+.edupilot-shell main textarea {
+  min-height: 48px;
+  line-height: 1.7;
+}
+
+.edupilot-shell main textarea::placeholder {
+  color: #85877e;
+}
+
+.edupilot-shell main input[type="url"] {
+  border-color: #e0e2d8;
+  background: #f8f8f5;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.edupilot-shell main input[type="url"]:focus {
+  border-color: #899781;
+  box-shadow: 0 0 0 3px rgb(137 151 129 / 12%);
+}
+
+/* Primary actions */
+.edupilot-shell:not(.edupilot-dark)
+aside button.bg-slate-950,
+.edupilot-shell:not(.edupilot-dark)
+main button.bg-slate-950 {
+  background-color: #303b2c;
+}
+
+.edupilot-shell:not(.edupilot-dark)
+aside button.bg-slate-950:hover,
+.edupilot-shell:not(.edupilot-dark)
+main button.bg-slate-950:hover {
+  background-color: #405039;
+}
+
+/* Evidence panel */
+.edupilot-shell aside .sticky {
+  border-color: #e4e5dc;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside .sticky {
+  background-color: rgb(242 242 237 / 96%);
+}
+
+.edupilot-shell aside .shadow-\[0_1px_2px_rgba\(15\,23\,42\,0\.03\)\] {
+  box-shadow: 0 1px 2px rgb(32 35 31 / 3%);
+}
+
+.edupilot-shell aside .rounded-xl.border {
+  border-color: #e0e2d8;
+  border-radius: 12px;
+}
+
+.edupilot-shell:not(.edupilot-dark)
+aside .rounded-xl.border:hover {
+  border-color: #bdc7b4;
+}
+
+/* Keep keyboard navigation visible */
+.edupilot-shell button:focus-visible,
+.edupilot-shell input:focus-visible,
+.edupilot-shell textarea:focus-visible {
+  outline: 2px solid #899781;
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .edupilot-shell *,
+  .edupilot-shell *::before,
+  .edupilot-shell *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Preserve the existing dark theme */
+.edupilot-shell.edupilot-dark aside,
+.edupilot-shell.edupilot-dark header,
+.edupilot-shell.edupilot-dark main > div.border-t {
+  border-color: #1e293b;
+}
+
+
+/* Sidebar: clearer structure and source cards */
+.edupilot-shell:not(.edupilot-dark) aside:first-of-type {
+  border-right-color: #e5e5dc;
+}
+
+.edupilot-shell aside button {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside .cursor-pointer {
+  border-color: #e8e8df;
+  border-radius: 13px;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside .cursor-pointer:hover {
+  border-color: #d2d9cb;
+  background-color: #f3f5ef;
+}
+
+/* Header: more deliberate separation */
+.edupilot-shell:not(.edupilot-dark) header {
+  border-bottom-color: #e7e2dc;
+}
+
+/* Composer: stronger, cleaner input surface */
+.edupilot-shell:not(.edupilot-dark) textarea {
+  color: #20231f;
+  line-height: 1.65;
+}
+
+.edupilot-shell:not(.edupilot-dark) textarea::placeholder {
+  color: #8a8b80;
+  opacity: 1;
+}
+
+.edupilot-shell:not(.edupilot-dark) textarea:focus {
+  outline: none;
+}
+
+/* Buttons: restrained feedback, no scaling or bounce */
+.edupilot-shell button:focus-visible,
+.edupilot-shell textarea:focus-visible,
+.edupilot-shell input:focus-visible {
+  outline: 2px solid #87977d;
+  outline-offset: 3px;
+}
+
+/* Welcome suggestions: refined hover state */
+.edupilot-shell:not(.edupilot-dark) main button.group {
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.edupilot-shell:not(.edupilot-dark) main button.group:hover {
+  border-color: #d1d9c9;
+  background-color: #fdfdf9;
+  box-shadow: 0 5px 16px rgb(32 35 31 / 4%);
+}
+
+/* Keep the app comfortable beside VS Code */
+@media (min-width: 768px) and (max-width: 1200px) {
+  .edupilot-shell aside:first-of-type {
+    width: 230px;
+  }
+
+  .edupilot-shell main {
+    min-width: 0;
+  }
+}
+
+/* Respect the user's motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .edupilot-shell *,
+  .edupilot-shell *::before,
+  .edupilot-shell *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Fix composer query visibility */
+.edupilot-shell:not(.edupilot-dark) textarea {
+  color: #20231f !important;
+  -webkit-text-fill-color: #20231f !important;
+  caret-color: #20231f !important;
+  opacity: 1 !important;
+}
+
+.edupilot-shell:not(.edupilot-dark) textarea::placeholder {
+  color: #85877d !important;
+  -webkit-text-fill-color: #85877d !important;
+  opacity: 1 !important;
+}
+
+.edupilot-shell:not(.edupilot-dark) textarea:focus {
+  color: #20231f !important;
+  -webkit-text-fill-color: #20231f !important;
+}
+
+
+/* EduPilot — warm sage user messages */
+.edupilot-shell:not(.edupilot-dark)
+main .justify-end > div[class*="bg-slate-950"] {
+  background: #e5ebdf !important;
+  color: #293529 !important;
+  -webkit-text-fill-color: #293529 !important;
+  border: 1px solid #d5decc !important;
+  border-radius: 18px 18px 5px 18px !important;
+  box-shadow: 0 2px 5px rgb(41 53 41 / 4%) !important;
+}
+
+/* Keep nested text readable too */
+.edupilot-shell:not(.edupilot-dark)
+main .justify-end > div[class*="bg-slate-950"] * {
+  color: #293529 !important;
+  -webkit-text-fill-color: #293529 !important;
+}
+
+
+/* EduPilot: stable, high-contrast message hover */
+.edupilot-shell:not(.edupilot-dark)
+main .justify-end > div[class*="bg-slate-950"] {
+  background-color: #e5ebdf !important;
+  color: #293529 !important;
+  -webkit-text-fill-color: #293529 !important;
+  border: 1px solid #d5decc !important;
+  opacity: 1 !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.edupilot-shell:not(.edupilot-dark)
+main .justify-end > div[class*="bg-slate-950"]:hover {
+  background-color: #e5ebdf !important;
+  border-color: #aab99e !important;
+  box-shadow: 0 2px 8px rgb(41 53 41 / 6%) !important;
+}
+
+/* Prevent nested text from losing contrast */
+.edupilot-shell:not(.edupilot-dark)
+main .justify-end > div[class*="bg-slate-950"] * {
+  color: #293529 !important;
+  -webkit-text-fill-color: #293529 !important;
+}
+
+/* EduPilot: premium send control */
+.edupilot-shell button[aria-label="Send message"] {
+  background: #303b2c !important;
+  color: #ffffff !important;
+  border: 1px solid #303b2c !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 4px rgb(32 41 31 / 12%) !important;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease !important;
+}
+
+.edupilot-shell button[aria-label="Send message"]:not(:disabled):hover {
+  background: #43523d !important;
+  border-color: #43523d !important;
+  box-shadow: 0 3px 8px rgb(32 41 31 / 14%) !important;
+}
+
+.edupilot-shell button[aria-label="Send message"]:disabled {
+  background: #e5e8e0 !important;
+  color: #8b9385 !important;
+  border-color: #e5e8e0 !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+.edupilot-shell button[aria-label="Send message"] svg {
+  color: inherit !important;
+  stroke: currentColor !important;
+}
+
+
+/* EduPilot: refined brand presentation */
+.edupilot-shell:not(.edupilot-dark) aside:first-of-type
+> div:first-child {
+  align-items: center;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside:first-of-type
+> div:first-child > div:first-child > div:first-child {
+  border-radius: 12px !important;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside:first-of-type
+> div:first-child > div:first-child svg {
+  display: block;
+  shape-rendering: geometricPrecision;
+}
+
+.edupilot-shell:not(.edupilot-dark) aside:first-of-type
+> div:first-child > div:first-child > div:last-child {
+  letter-spacing: -0.035em;
+}
+
+
+/* EduPilot — refined knowledge source hover states */
+
+/* Keep source cards readable */
+.edupilot-shell:not(.edupilot-dark) aside button {
+  opacity: 1;
+}
+
+/* Source cards: stable ivory surface */
+.edupilot-shell:not(.edupilot-dark) aside button:hover {
+  color: #293529;
+}
+
+/* Source card border and surface */
+.edupilot-shell:not(.edupilot-dark) aside button[class*="rounded-xl"]:hover,
+.edupilot-shell:not(.edupilot-dark) aside button[class*="rounded-2xl"]:hover {
+  background-color: #f1f3ec !important;
+  border-color: #cbd5c2 !important;
+  box-shadow: 0 2px 6px rgb(41 53 41 / 5%);
+}
+
+/* Prevent nested text from fading on hover */
+.edupilot-shell:not(.edupilot-dark) aside button:hover span,
+.edupilot-shell:not(.edupilot-dark) aside button:hover p,
+.edupilot-shell:not(.edupilot-dark) aside button:hover div {
+  opacity: 1;
+}
+
+/* No unnecessary motion */
+.edupilot-shell aside button {
+  transform: none;
+}
+.edupilot-shell aside button:hover {
+  transform: none !important;
+}
+
+/* EduPilot — visible knowledge-source selection */
+
+/* Selected source: light sage, not black */
+.edupilot-shell:not(.edupilot-dark) aside button[aria-pressed="true"],
+.edupilot-shell:not(.edupilot-dark) aside button[aria-selected="true"] {
+  background-color: #e5ebdf !important;
+  color: #293529 !important;
+  border-color: #aab99e !important;
+  box-shadow: inset 3px 0 0 #71816a !important;
+}
+
+/* Selected source on hover: stronger contrast */
+.edupilot-shell:not(.edupilot-dark) aside button[aria-pressed="true"]:hover,
+.edupilot-shell:not(.edupilot-dark) aside button[aria-selected="true"]:hover {
+  background-color: #d8e2d0 !important;
+  color: #202a1f !important;
+  border-color: #879b7b !important;
+  box-shadow: inset 3px 0 0 #536b49 !important;
+}
+
+/* Ensure the selected source's text and icons remain readable */
+.edupilot-shell:not(.edupilot-dark) aside button[aria-pressed="true"] *,
+.edupilot-shell:not(.edupilot-dark) aside button[aria-selected="true"] * {
+  color: #293529 !important;
+}
+
+/* EduPilot — New Conversation */
+.edupilot-shell aside button.bg-slate-950 {
+  background: #f5f5f1 !important;
+  color: #343a32 !important;
+  border: 1px solid #e7e8e1 !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em;
+  transition: none !important;
+}
+
+.edupilot-shell aside button.bg-slate-950:hover {
+  background: #f5f5f1 !important;
+  border-color: #e7e8e1 !important;
+  color: #343a32 !important;
+  box-shadow: none !important;
+}
+
+.edupilot-shell aside button.bg-slate-950 svg {
+  opacity: 0.8;
+  stroke-width: 1.7;
+}
+
+/* Dark mode — surface consistency fixes */
+
+.edupilot-dark {
+  background: #111311 !important;
+  color: #e6e9e2 !important;
+}
+
+/* Sidebar */
+.edupilot-dark aside {
+  background: #171a17 !important;
+  color: #e1e5dc !important;
+  border-color: #2d322b !important;
+}
+
+/* Header */
+.edupilot-dark header {
+  background: #171a17 !important;
+  border-color: #2d322b !important;
+}
+
+/* Evidence panel and its header */
+.edupilot-dark aside header,
+.edupilot-dark [class*="context-header"] {
+  background: #171a17 !important;
+  color: #e1e5dc !important;
+  border-color: #2d322b !important;
+}
+
+/* Bottom composer area */
+.edupilot-dark .border-t {
+  border-color: #2d322b !important;
+}
+
+.edupilot-dark textarea,
+.edupilot-dark input {
+  background: #191c19 !important;
+  color: #e6e9e2 !important;
+  border-color: #343a32 !important;
+  box-shadow: none !important;
+}
+
+.edupilot-dark textarea::placeholder,
+.edupilot-dark input::placeholder {
+  color: #969d90 !important;
+  opacity: 1;
+}
+
+/* New Conversation — readable but restrained */
+.edupilot-dark aside button.bg-slate-950 {
+  background: #292e27 !important;
+  color: #e6e9e2 !important;
+  border-color: #3a4035 !important;
+}
+
+/* Knowledge source titles and metadata */
+.edupilot-dark aside .group .text-slate-800 {
+  color: #e1e5dc !important;
+}
+
+.edupilot-dark aside .group .text-slate-400,
+.edupilot-dark aside .group .text-slate-500 {
+  color: #9ba394 !important;
+}
+
+/* Suggestion cards */
+.edupilot-dark .bg-slate-50,
+.edupilot-dark .bg-slate-100 {
+  background: #191c19 !important;
+}
+
+.edupilot-dark .bg-slate-200 {
+  background: #252a23 !important;
+}
+
+/* Keep borders subtle */
+.edupilot-dark .border-slate-200,
+.edupilot-dark .border-slate-200\/80,
+.edupilot-dark .border-slate-100,
+.edupilot-dark .border-slate-300 {
+  border-color: #30352e !important;
+}
+
+/* No bright shadows */
+.edupilot-dark .shadow-sm,
+.edupilot-dark .shadow-md {
+  box-shadow: none !important;
+}
+/* Final dark-mode surface corrections */
+
+/* Evidence panel — target its actual responsive class */
+.edupilot-dark aside[class*="xl:block"] {
+  background-color: #171a17 !important;
+  color: #e1e5dc !important;
+  border-color: #2d322b !important;
+}
+
+.edupilot-dark aside[class*="xl:block"] > div:first-child {
+  background-color: #171a17 !important;
+  border-color: #2d322b !important;
+}
+
+/* Evidence empty state icon */
+.edupilot-dark aside[class*="xl:block"] .bg-white {
+  background-color: #22261f !important;
+}
+
+/* Search and other inputs */
+.edupilot-dark input {
+  background-color: #191c19 !important;
+  color: #e6e9e2 !important;
+  border-color: #343a32 !important;
+}
+
+/* Composer footer: use the actual shell's child surfaces */
+.edupilot-dark .edupilot-shell {
+  background-color: #111311 !important;
+}
+
+.edupilot-dark .edupilot-shell > div {
+  background-color: #111311;
+}
+
+/* Preserve dark backgrounds for the sidebar and top header */
+.edupilot-dark aside,
+.edupilot-dark header {
+  background-color: #171a17 !important;
+}
+
+/* Improve knowledge source metadata readability */
+.edupilot-dark aside .text-slate-400,
+.edupilot-dark aside .text-slate-500 {
+  color: #a0a798 !important;
+}
+
+/* Dark mode — composer footer */
+.edupilot-dark .border-t.bg-white\/95 {
+  background-color: #111311 !important;
+  border-color: #2d322b !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.edupilot-dark .border-t.bg-white\/95 > div > p {
+  color: #92998b !important;
+}
+
+/* =========================================
+   Dark mode — final contrast polish
+   ========================================= */
+
+/* Remove white surfaces from the composer footer */
+.edupilot-dark .border-t.bg-white\/95 {
+  background: #111311 !important;
+  border-color: #2d322b !important;
+}
+
+/* Composer's outer container */
+.edupilot-dark .border-t.bg-white\/95 .rounded-2xl {
+  background: #171a17 !important;
+  border-color: #30352e !important;
+  box-shadow: none !important;
+}
+
+/* Search field and URL input */
+.edupilot-dark input {
+  background-color: #191c19 !important;
+  color: #e6e9e2 !important;
+  border-color: #30352e !important;
+}
+
+/* Add URL button */
+.edupilot-dark input + button,
+.edupilot-dark input ~ button {
+  background-color: #20241e !important;
+  color: #c3c9bd !important;
+  border-color: #343a31 !important;
+}
+
+/* Knowledge source cards — softer, thinner borders */
+.edupilot-dark aside .group {
+  border-color: #30352e !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove bright white borders from source cards */
+.edupilot-dark aside .group.border,
+.edupilot-dark aside .group[class*="border-slate"] {
+  border-color: #30352e !important;
+}
+
+/* Source icons */
+.edupilot-dark aside .group .bg-slate-50 {
+  background: #22261f !important;
+}
+
+/* Secondary controls: unify surfaces */
+.edupilot-dark button.border-slate-200,
+.edupilot-dark button.border-slate-300 {
+  background-color: #1b1e1a !important;
+  color: #dce1d7 !important;
+  border-color: #343a31 !important;
+}
+
+/* Keep the theme toggle and Evidence button readable */
+.edupilot-dark header button {
+  border-color: #343a31;
+}
+
+/* Composer upload button */
+.edupilot-dark .border-t.bg-white\/95 button {
+  box-shadow: none !important;
+}
+
+/* Keep the composer text readable */
+.edupilot-dark textarea::placeholder,
+.edupilot-dark input::placeholder {
+  color: #92998c !important;
+  opacity: 1;
+}
+
+
+
